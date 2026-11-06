@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Event | Event Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F2E9DC;
+            color: #4A3428;
+        }
+
+        nav {
+            background-color: #4A3428;
+            color: #FAF9F6;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 23px;
+        }
+
+        nav a {
+            color: #FAF9F6;
+            text-decoration: none;
+            background-color: #80634F;
+            padding: 10px 18px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 35px;
+            background-color: #FAF9F6;
+            border-radius: 12px;
+            border: 1px solid #D8C3A5;
+            box-shadow: 0 4px 12px rgba(74, 52, 40, 0.08);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #80634F;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #D8C3A5;
+            border-radius: 6px;
+            background-color: #FAF9F6;
+            color: #4A3428;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #80634F;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4A3428;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #80634F;
+        }
+
+        .error {
+            color: #80634F;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 22px;
+            color: #80634F;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                margin: 25px 15px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>Event Management</h2>
+        <a href="{% url 'student_dashboard' %}">Dashboard</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>Upload Your Event</h1>
+
+        <p class="subtitle">
+            Submit your event details and upload the CSV file.
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.event_type.id_for_label }}">
+                    Event Category
+                </label>
+
+                {{ form.event_type }}
+
+                {% for error in form.event_type.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.event_date.id_for_label }}">
+                    Event Date
+                </label>
+
+                {{ form.event_date }}
+
+                {% for error in form.event_date.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.csv_file.id_for_label }}">
+                    Upload CSV File
+                </label>
+
+                {{ form.csv_file }}
+
+                {% for error in form.csv_file.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Submit Event</button>
+
+        </form>
+
+        <a href="{% url 'student_dashboard' %}" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F2E9DC;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            background-color: #FAF9F6;
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(74, 52, 40, 0.12);
+        }
+
+        h1 {
+            color: #4A3428;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #80634F;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #4A3428;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #D8C3A5;
+            border-radius: 7px;
+            background: #FFFFFF;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #80634F;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background-color: #4A3428;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #80634F;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #80634F;
+        }
+
+        .login-link a {
+            color: #4A3428;
+            font-weight: bold;
+        }
+
+        .errors {
+            color: #80634F;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+        Student Event Management System
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div class="errors">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <label>First Name</label>
+        {{ form.first_name }}
+
+        <label>Last Name</label>
+        {{ form.last_name }}
+
+        <label>Username</label>
+        {{ form.username }}
+
+        <label>Email Address</label>
+        {{ form.email }}
+
+        <label>Password</label>
+        {{ form.password1 }}
+
+        <label>Confirm Password</label>
+        {{ form.password2 }}
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p class="login-link">
+        Already have an account?
+        <a href="/login/">Login</a>
+    </p>
+
+</div>
+
+</body>
+</html>

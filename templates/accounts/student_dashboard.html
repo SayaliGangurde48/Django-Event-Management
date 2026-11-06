@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Event Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F2E9DC;
+            color: #4A3428;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #4A3428;
+            color: #FAF9F6;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 23px;
+        }
+
+        nav a {
+            color: #FAF9F6;
+            text-decoration: none;
+            background-color: #80634F;
+            padding: 11px 22px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background-color: #D8C3A5;
+            color: #4A3428;
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        /* Welcome */
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #80634F;
+            font-size: 16px;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background-color: #FAF9F6;
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid #D8C3A5;
+            box-shadow: 0 3px 10px rgba(74, 52, 40, 0.08);
+        }
+
+        .card h3 {
+            color: #80634F;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .card h1 {
+            font-size: 32px;
+            color: #4A3428;
+        }
+
+        /* Sections */
+        .section {
+            background-color: #FAF9F6;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #D8C3A5;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(74, 52, 40, 0.08);
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            font-size: 23px;
+        }
+
+        .section p {
+            color: #80634F;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Upload Button */
+        .upload-btn {
+            display: inline-block;
+            background-color: #4A3428;
+            color: #FAF9F6;
+            padding: 13px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .upload-btn:hover {
+            background-color: #80634F;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #D8C3A5;
+        }
+
+        th {
+            background-color: #4A3428;
+            color: #FAF9F6;
+        }
+
+        td {
+            color: #4A3428;
+        }
+
+        tr:hover {
+            background-color: #F2E9DC;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #80634F;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #80634F;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h2>Event Management</h2>
+
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+
+    <!-- Dashboard Content -->
+    <div class="container">
+
+        <!-- Welcome Section -->
+        <div class="welcome">
+
+            <h1>
+                Welcome, {{ user.first_name|default:user.username }}!
+            </h1>
+
+            <p>
+                Manage your event information and CSV file submissions.
+            </p>
+
+        </div>
+
+
+        <!-- Dashboard Statistics -->
+        <div class="cards">
+
+            <div class="card">
+                <h3>Account Status</h3>
+                <h1>Active</h1>
+            </div>
+
+            <div class="card">
+                <h3>Uploaded Events</h3>
+                <h1>{{ total_events }}</h1>
+            </div>
+
+        </div>
+
+
+        <!-- Event Submission Section -->
+        <section class="section">
+
+            <h2>Event Submission</h2>
+
+            <p>
+                Upload your Hackathon, Workshop, Internship,
+                or Orientation event details using a CSV file.
+            </p>
+
+            <a href="{% url 'upload_event' %}" class="upload-btn">
+                + Upload New Event
+            </a>
+
+        </section>
+
+
+        <!-- Uploaded Events Table -->
+        <section class="section">
+
+            <h2>My Uploaded Events</h2>
+
+            <p>
+                View all your previously submitted event details.
+            </p>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Event Category</th>
+                            <th>Event Date</th>
+                            <th>CSV File</th>
+                            <th>Upload Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for event in uploaded_events %}
+
+                        <tr>
+
+                            <td>
+                                {{ event.event_type }}
+                            </td>
+
+                            <td>
+                                {{ event.event_date|date:"d M Y" }}
+                            </td>
+
+                            <td>
+                                {{ event.csv_file.name }}
+                            </td>
+
+                            <td>
+                                {{ event.uploaded_at|date:"d M Y" }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+                            <td colspan="4" class="empty-message">
+                                No events uploaded yet.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        © 2026 Event Management System | Dashboard
+    </footer>
+
+</body>
+
+</html>

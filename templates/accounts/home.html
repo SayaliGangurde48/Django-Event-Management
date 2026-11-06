@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Event Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #FAF9F6;
+            color: #4A3428;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #4A3428;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: #FAF9F6;
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #FAF9F6;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #D8C3A5;
+        }
+
+        .nav-links .register {
+            background-color: #D8C3A5;
+            color: #4A3428;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        /* Welcome Section */
+        .hero {
+            min-height: 440px;
+            background-color: #F2E9DC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 70px 12%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #80634F;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background-color: #4A3428;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #80634F;
+        }
+
+        .btn-secondary {
+            border: 1px solid #80634F;
+            color: #4A3428;
+        }
+
+        .btn-secondary:hover {
+            background-color: #D8C3A5;
+        }
+
+        /* Event Categories */
+        .categories {
+            padding: 65px 10%;
+            text-align: center;
+        }
+
+        .categories h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .categories > p {
+            color: #80634F;
+            margin-bottom: 35px;
+            font-size: 15px;
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .category {
+            background-color: #F2E9DC;
+            border: 1px solid #D8C3A5;
+            padding: 25px 12px;
+            border-radius: 7px;
+            transition: 0.2s;
+        }
+
+        .category:hover {
+            background-color: #D8C3A5;
+        }
+
+        .category h3 {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about {
+            background-color: #F2E9DC;
+            padding: 55px 12%;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .about p {
+            max-width: 750px;
+            margin: auto;
+            color: #80634F;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4A3428;
+            color: #F2E9DC;
+            text-align: center;
+            padding: 22px;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav h2 {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 60px 7%;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .category-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories {
+                padding: 45px 6%;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .category-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+
+        <h2>Event Management</h2>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'login' %}">Login</a>
+
+            <a href="{% url 'register' %}" class="register">
+                Register
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Welcome Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Welcome to Event Management System
+            </h1>
+
+            <p>
+                Manage and maintain your event records in one place.
+                This platform allows users to select event categories,
+                enter event dates and upload CSV files for easy
+                record management.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'login' %}" class="btn btn-primary">
+                    Login
+                </a>
+
+                <a href="{% url 'register' %}" class="btn btn-secondary">
+                    Get Started
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Event Categories -->
+    <section class="categories">
+
+        <h2>Event Categories</h2>
+
+        <p>
+            Manage different types of events using the platform.
+        </p>
+
+        <div class="category-list">
+
+            <div class="category">
+                <h3>Hackathon</h3>
+            </div>
+
+            <div class="category">
+                <h3>Workshop</h3>
+            </div>
+
+            <div class="category">
+                <h3>Internship</h3>
+            </div>
+
+            <div class="category">
+                <h3>Orientation</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About Section -->
+    <section class="about">
+
+        <h2>About the Platform</h2>
+
+        <p>
+            The Event Management System is developed using Python
+            and the Django framework. It provides user registration,
+            login authentication, profile management and CSV file
+            upload functionality. Users can maintain their event
+            information by selecting a category and event date.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Event Management System. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
